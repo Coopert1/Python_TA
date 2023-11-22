@@ -9,7 +9,7 @@ def test_to_hours(minutes, hours):
 
 @pytest.mark.parametrize("hours, minutes", [(5, 300), (24, 1440), (0, 0)])
 def test_to_minutes(hours, minutes):
-    assert to_minutes(6) == 360
+    assert to_minutes(hours) == minutes
 
 
 @pytest.mark.parametrize("a, b,  expected_result", [(12, 3, True), (2, 3, False), (512, 8, True)])
