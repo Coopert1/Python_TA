@@ -12,6 +12,6 @@ def test_to_minutes(hours, minutes):
     assert to_minutes(6) == 360
 
 
-@pytest.mark.parametrize("a, b,  expected_result", [(12, 3, True), (2, 3, False)])
+@pytest.mark.parametrize("a, b,  expected_result", [(12, 3, True), (2, 3, False), (512, 8, True)])
 def test_is_whole_div(a, b, expected_result):
     assert is_whole_div(a, b) == expected_result
