@@ -1,4 +1,4 @@
-from tasks.task_03 import *
+from tasks.task_03_string_convertor import *
 import pytest
 
 
