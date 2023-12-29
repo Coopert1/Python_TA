@@ -1,4 +1,4 @@
-from tasks.task_02 import *
+from tasks.task_02_stats import *
 import pytest
 
 input_data_1 = [1, 11, 3, 3, 5, 6, 9, 11, 11, 3]
