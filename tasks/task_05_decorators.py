@@ -1,8 +1,9 @@
 import time
+from functools import wraps
 
 
 def logger(fn):
-
+    @wraps(fn)
     def wrapper(*args, **kwargs):
         start_time = time.perf_counter()
         print(f'Function {fn.__name__} is going to run')
