@@ -1,4 +1,5 @@
 from tasks.task_01 import *
+from helpers.custom_exeption import WrongOperatorError
 import pytest
 
 
@@ -15,3 +16,37 @@ def test_to_minutes(hours, minutes):
 @pytest.mark.parametrize("a, b,  expected_result", [(12, 3, True), (2, 3, False), (512, 8, True)])
 def test_is_whole_div(a, b, expected_result):
     assert is_whole_div(a, b) == expected_result
+
+
+@pytest.mark.parametrize("a, b, operator, expected_result", [(12, 3, '+', 15),
+                                                             (2, 3, '*', 6),
+                                                             (8, 2, '//', 4),
+                                                             (3, 4, '/', 0.75),
+                                                             (5, 2, '%', 1),
+                                                             (4, 3, '3', WrongOperatorError)])
+def test_calculator(a, b, operator, expected_result):
+    if expected_result != WrongOperatorError:
+        assert calculator(a, b, operator) == expected_result
+    else:
+        with pytest.raises(WrongOperatorError, match="Error: Chose ONLY operator from list"):
+            calculator(a, b, operator)
+
+
+@pytest.mark.parametrize("temp, initial_scale, to_scale, expected_result", [(75.6, 'F', 'C', 24.11),
+                                                                            ('0', 'K', 'F', -459.67),
+                                                                            (0, 'c', 'k', 273.15),
+                                                                            (0, 'c', 'L', ValueError),
+                                                                            (12, 'H', 'K', ValueError)])
+def test_temp_converter(temp, initial_scale, to_scale, expected_result):
+    if expected_result != ValueError:
+        assert temp_converter(temp, initial_scale, to_scale) == expected_result
+    else:
+        with pytest.raises(ValueError, match='Enter correct temp scale: possible variants is: "C - Cesium, '
+                                             'F - Fahrenheit, K - Kelvin'):
+            temp_converter(temp, initial_scale, to_scale)
+
+
+@pytest.mark.parametrize("a, b, c, expected_result", [(3, 432, 0, 432),
+                                                      (777, -12, 5, 777)])
+def test_greatest_number(a, b, c, expected_result):
+    assert greatest_number(a, b, c) == expected_result
