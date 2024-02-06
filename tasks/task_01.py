@@ -1,5 +1,6 @@
 from helpers.custom_exeption import WrongOperatorError
 from tasks.task_05_decorators import logger
+from datetime import datetime
 
 
 def to_minutes(hours: int) -> int:
@@ -44,3 +45,50 @@ def calculator(a=None, b=None, operator=None):
             continue
         finally:
             a, b, operator = None, None, None
+
+
+def temp_converter(temp, initial_scale, to_scale):
+    initial_scale = initial_scale.upper()
+    to_scale = to_scale.upper()
+    temp = float(temp)
+    scales = ('F', 'C', 'K')
+    if initial_scale not in scales or to_scale not in scales:
+        raise ValueError('Enter correct temp scale: possible variants is: "C - Cesium, F - Fahrenheit, K - Kelvin')
+    match initial_scale:
+        case 'C':
+            if to_scale == 'F':
+                return round(temp * 1.8 + 32, 2)
+            elif to_scale == 'K':
+                return round(temp + 273.15, 2)
+        case 'K':
+            if to_scale == 'F':
+                return round(temp * 1.8 - 459.67, 2)
+            elif to_scale == 'C':
+                return round(temp - 273.15, 2)
+        case 'F':
+            if to_scale == 'K':
+                return round(temp / 1.8 + 459.67, 2)
+            elif to_scale == 'C':
+                return round((temp - 32.2) / 1.8, 2)
+
+
+def greatest_number(a, b, c):
+    return max([a, b, c])
+
+
+def date_formats():
+    time = datetime.now()
+    # a) Current date and time
+    print(time)
+    # b) Current year
+    print(time.year)
+    # c) Month of year
+    print(time.month)
+    # d) Week number of the year
+    print(time.strftime("%W"))
+    # f) Day of year
+    print(time.strftime("%-j"))
+    # e) Weekday of the week
+    print(time.weekday())
+
+
